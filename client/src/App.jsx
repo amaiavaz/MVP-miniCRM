@@ -15,7 +15,7 @@ function App() {
   useEffect(() => {
     const fetchClients = async() => {
       try {
-        const res = await fetchData("/clients/clients", "get");
+        const res = await fetchData("/api/clients", "get");
         setClients(res.data);
       } catch (error) {
         console.log(error);
@@ -50,11 +50,11 @@ function App() {
 
   return (
     <>
-      <main>
-        <Container>
-          <h1>MVP de CRM</h1>
+      <main className='py-4 px-3'>
+        <Container fluid>
+          <h1 className='text-center mb-4'>MVP - CRM</h1>
           {!selectedClient ? 
-            <Row>
+            <Row className='gx-5 overflow-hidden'>
               <Col md={8}>
                 {/* tabla customizada para datos de clientes */}
                 <CustomTable
@@ -66,7 +66,7 @@ function App() {
               <Col md={4}>
                 <div className='text-center mb-3'>
                   <button
-                    className='ppal-btn'
+                    className='ppal-btn mt-5'
                     onClick={handleShowForm}
                   >Crear cliente</button>
                 </div>
@@ -79,7 +79,10 @@ function App() {
               </Col>
             </Row>
             :
-            <ClientDetail />
+            <ClientDetail
+              client={selectedClient}
+              onBack={() => setSelectedClient(null)}
+            />
           }
         </Container>
       </main>

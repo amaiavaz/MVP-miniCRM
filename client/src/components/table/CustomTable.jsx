@@ -4,7 +4,7 @@ import './customTable.css';
 export const CustomTable = ({ data, columns }) => {
   return (
     <div className='custom-table-responsive'>
-      <Table bordered hover size="sm" className='custom-table text-center'>
+      <Table bordered size="sm" className='custom-table text-center'>
         <thead>
           <tr>
             {/* se recorren las columnas y se renderizan los títulos */}

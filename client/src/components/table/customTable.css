@@ -4,6 +4,9 @@
 
 .custom-table {
   margin-block-start: 3rem;
+  border-spacing: 0;
+  border-radius: 1rem;
+  overflow: hidden;
 
   thead tr th{
     background-color: var(--secondary-color);

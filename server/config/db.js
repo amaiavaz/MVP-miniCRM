@@ -31,7 +31,7 @@ const initDatabase = async () => {
   try {
     await executeQuery(`
       CREATE TABLE IF NOT EXISTS client (
-        user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        client_id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         lastname TEXT NOT NULL,
         email TEXT NOT NULL UNIQUE,
@@ -46,8 +46,8 @@ const initDatabase = async () => {
         title TEXT NOT NULL,
         amount REAL NOT NULL,
         status INTEGER NOT NULL,
-        user_id INTEGER NOT NULL,
-        FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
+        client_id INTEGER NOT NULL,
+        FOREIGN KEY (client_id) REFERENCES client(client_id) ON DELETE CASCADE
       )
     `);
 

@@ -1,5 +1,8 @@
 import { useState } from "react"
 import { Form } from "react-bootstrap";
+import { validateForms } from "../../helpers/validateForms";
+import { fetchData } from "../../helpers/axiosHelper";
+import { clientSchema } from "../../schemas/addClientSchema";
 
 const initialValues = {
   name: "",
@@ -9,20 +12,36 @@ const initialValues = {
   company: ""
 }
 
-export const ClientForm = () => {
+export const ClientForm = ({setClients, setShowForm}) => {
   const [register, setRegister] = useState(initialValues);
+  const [valErrors, setValErrors] = useState({});
+  const [msgError, setMsgError] = useState();
 
   const handleChange = (e) => {
     const {name, value} = e.target;
     setRegister({...register, [name]: value});
   }
 
-  const onSubmit = () => {
+  const onSubmit = async() => {
+    try {
+      const { valid, errors } = validateForms(clientSchema, register);
+      setValErrors(errors);
+      
+      if (valid) {
+        const res = await fetchData("/api/clients/addClient", "post", register);
+        setClients((prev) => [...prev, res.data]);
+        setShowForm(false);
+        setRegister(initialValues);
+      }
 
+    } catch (error) {
+      console.log(error);
+      setMsgError(error?.response?.data || "Error inesperado en el servidor");
+    }
   }
 
   return (
-    <Form className="border border-2 rounded-4 p-3">
+    <Form className="border border-2 rounded-4 p-3 bg-light">
       <Form.Group className="mb-3" controlId="formName">
         <Form.Label className="fw-bold">Nombre:</Form.Label>
         <Form.Control
@@ -32,17 +51,19 @@ export const ClientForm = () => {
           value={register.name}
           onChange={handleChange}
         />
+        {valErrors.name && <Form.Text className="text-danger fw-bold">{valErrors.name}</Form.Text>}
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formLastname">
-        <Form.Label className="fw-bold">Apellido:</Form.Label>
+        <Form.Label className="fw-bold">Apellidos:</Form.Label>
         <Form.Control
           type="text"
-          placeholder="Apellido"
+          placeholder="Apellidos"
           name="lastname"
           value={register.lastname}
           onChange={handleChange}
         />
+        {valErrors.lastname && <Form.Text className="text-danger fw-bold">{valErrors.lastname}</Form.Text>}
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formEmail">
@@ -54,6 +75,7 @@ export const ClientForm = () => {
           value={register.email}
           onChange={handleChange}
         />
+        {valErrors.email && <Form.Text className="text-danger fw-bold">{valErrors.email}</Form.Text>}
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formPhone">
@@ -65,6 +87,7 @@ export const ClientForm = () => {
           value={register.phone_number}
           onChange={handleChange}
         />
+        {valErrors.phone_number && <Form.Text className="text-danger fw-bold">{valErrors.phone_number}</Form.Text>}
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formCompany">
@@ -76,9 +99,10 @@ export const ClientForm = () => {
           value={register.company}
           onChange={handleChange}
         />
+        {valErrors.company && <Form.Text className="text-danger fw-bold">{valErrors.company}</Form.Text>}
       </Form.Group>
       
-      {/* {msgError && <p className="text-danger">{msgError}</p>} */}
+      {msgError && <p className="text-danger">{msgError.message || msgError}</p>}
       <div className="w-100">
         <button
           className="ppal-btn w-100"
