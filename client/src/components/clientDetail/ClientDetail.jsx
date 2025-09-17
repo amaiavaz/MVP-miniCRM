@@ -11,7 +11,7 @@ export const ClientDetail = ({ client, onBack }) => {
   useEffect(() => {
     const fetchOpportunities = async () => {
       try {
-        const res = await fetchData(`/api/opportunities/${client.client_id}`, 'get');
+        const res = await fetchData(`/api/opportunities/client/${client.client_id}`, 'get');
         setOpportunities(res.data);
       } catch (error) {
         console.log(error);
@@ -54,13 +54,13 @@ export const ClientDetail = ({ client, onBack }) => {
       </div>
 
       <Row className="justify-content-between">
-        <Col md={6}>
+        <Col lg={6}>
           <CustomTable 
             data={opportunities}
             columns={columns} 
           />
         </Col>
-        <Col md={4}>
+        <Col lg={4}>
           <div className='text-center mb-3'>
             <button
               className='ppal-btn'

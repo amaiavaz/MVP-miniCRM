@@ -19,9 +19,7 @@ export const CustomTable = ({ data, columns }) => {
           {data?.map((row, index) => (
             <tr key={index}>
               {columns.map((col) => (
-                <td key={col.key}
-                  /* aplicación de estilos condicionales */
-                  className={row.status === 1 ? 'row-pending' : ''}>
+                <td key={col.key}>
                   {/* renderizado flexible: si existe col.render utiliza función personalizada y si no, se muestra el valor */}
                   {col.render ? col.render(row) : row[col.key]}
                 </td>

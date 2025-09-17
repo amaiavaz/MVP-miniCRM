@@ -5,6 +5,7 @@ import { ClientDetail } from './components/clientDetail/ClientDetail';
 import { useEffect, useState } from 'react';
 import { CustomTable } from './components/table/CustomTable';
 import { fetchData } from './helpers/axiosHelper';
+import { ExportButtons } from './components/exportButtons/ExportButtons';
 
 function App() {
   const [clients, setClients] = useState([]);
@@ -53,8 +54,9 @@ function App() {
         <h1 className='text-center mb-5 py-3 bg-dark text-white'>MVP - CRM</h1>
         <Container fluid>
           {!selectedClient ? 
-            <Row className='gx-5'>
-              <Col md={8}>
+            <Row className='gx-5 gy-4'>
+              <Col lg={8}>
+                <ExportButtons />
                 {/* tabla customizada para datos de clientes */}
                 <CustomTable
                   columns={columns}
@@ -62,8 +64,8 @@ function App() {
                 />
               </Col>
 
-              <Col md={4}>
-                <div className='text-center mb-3'>
+              <Col lg={4}>
+                <div className='text-center mb-5'>
                   <button
                     className='ppal-btn'
                     onClick={handleShowForm}

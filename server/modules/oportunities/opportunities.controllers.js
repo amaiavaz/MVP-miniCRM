@@ -1,4 +1,5 @@
 import opportunitiesDal from './opportunities.dal.js';
+import { Parser } from 'json2csv';
 
 class OpportunitiesController {
   getOpportunitiesByClient = async (req, res) => {
@@ -27,6 +28,22 @@ class OpportunitiesController {
       };
 
       res.status(200).json(newOpportunity);
+    } catch (error) {
+      res.status(500).json({ message: 'Error de servidor' });
+    }
+  }
+
+  exportOpportunities = async (req, res) => {
+    try {
+      const opportunities = await opportunitiesDal.getOpportunitiesData();
+      const fields = ['opportunity_id', 'title', 'amount', 'status', 'client_id'];
+      const parser = new Parser({ fields });
+      const csv = parser.parse(opportunities);
+
+      res.header('Content-Type', 'text/csv');
+      res.attachment('opportunities.csv');
+      res.send(csv);
+
     } catch (error) {
       res.status(500).json({ message: 'Error de servidor' });
     }

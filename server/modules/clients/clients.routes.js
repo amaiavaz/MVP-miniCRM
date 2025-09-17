@@ -6,5 +6,6 @@ const router = express.Router();
 
 router.get('/', clientsControllers.getClientsData);
 router.post('/addClient', validateForm(clientSchema), clientsControllers.addClient);
+router.get('/export', clientsControllers.exportClients);
 
 export default router;

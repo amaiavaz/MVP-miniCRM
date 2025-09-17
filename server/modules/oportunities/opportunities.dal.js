@@ -23,6 +23,16 @@ class OpportunitiesDal {
       throw { message: 'Error en base de datos' };
     }
   }
+
+  getOpportunitiesData = async () => {
+    try {
+      const sql = 'SELECT * FROM opportunity';
+      const result = await executeQuery(sql);
+      return result;
+    } catch (error) {
+      throw { message: 'Error en base de datos' };
+    }
+  }
 }
 
 export default new OpportunitiesDal();
