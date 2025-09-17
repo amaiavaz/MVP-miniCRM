@@ -30,7 +30,7 @@ const executeQuery = async (sql, values = []) => {
 const initDatabase = async () => {
   try {
     await executeQuery(`
-      CREATE TABLE IF NOT EXISTS user (
+      CREATE TABLE IF NOT EXISTS client (
         user_id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         lastname TEXT NOT NULL,

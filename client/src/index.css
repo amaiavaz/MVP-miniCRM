@@ -1,0 +1,27 @@
+:root {
+  --primary-color: #00AAF0;
+  --secondary-color: #d35b00;
+}
+
+.ppal-btn {
+  padding: .3rem 0.6rem;
+  color: var(--secondary-color);
+  border: 2px solid var(--secondary-color);
+  border-radius: 20px;
+  font-weight: 700;
+
+  &:hover {
+    background-color: var(--secondary-color);
+    color: #FFF;
+  }
+}
+
+.sec-btn {
+  padding: .25rem .5rem;
+  background-color: var(--primary-color);
+  border-radius: 15px;
+
+  &:hover {
+    filter: brightness(85%);
+  }
+}

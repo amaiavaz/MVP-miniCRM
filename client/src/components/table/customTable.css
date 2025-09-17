@@ -1,0 +1,14 @@
+.custom-table-responsive {
+  overflow-x: auto;
+}
+
+.custom-table {
+  margin-block-start: 3rem;
+
+  thead tr th{
+    background-color: var(--secondary-color);
+    color: #FFF;
+  }
+
+}
+
