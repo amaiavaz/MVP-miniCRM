@@ -7,9 +7,14 @@ export const opportunitySchema = z.object({
     .max(100, { message: "El título no puede superar 100 caracteres" }),
 
   amount: z
-    .number({ invalid_type_error: "El monto debe ser un número" })
-    .min(0, { message: "El monto no puede ser negativo" })
-    .max(1000000, { message: "El monto es demasiado alto" }),
+    .string()
+    .transform((val) => parseFloat(val))
+    .refine((val) => !isNaN(val) && val >= 0, {
+      message: "El monto debe ser un número válido mayor o igual a 0"
+    })
+    .refine((val) => val <= 1000000, {
+      message: "El monto es demasiado alto"
+    }),
 
   status: z
     .number()

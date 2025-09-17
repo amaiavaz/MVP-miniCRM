@@ -24,10 +24,20 @@ export const ClientDetail = ({ client, onBack }) => {
     setShowForm(!showForm);
   }
 
+  const statusMap = {
+    1: 'Nueva',
+    2: 'En proceso',
+    3: 'Cerrada'
+  };
+
   const columns = [
     { key: 'title', label: 'Título' },
     { key: 'amount', label: 'Monto' },
-    { key: 'status', label: 'Estado' },
+    {
+      key: 'status', 
+      label: 'Estado' ,
+      render: (row) => statusMap[row.status]
+    },
   ];
 
   return (
@@ -53,7 +63,7 @@ export const ClientDetail = ({ client, onBack }) => {
         <Col md={4}>
           <div className='text-center mb-3'>
             <button
-              className='ppal-btn mt-5'
+              className='ppal-btn'
               onClick={handleShowForm}
             >Crear oportunidad</button>
           </div>

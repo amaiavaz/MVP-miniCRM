@@ -1,6 +1,5 @@
 import './App.css';
 import { Col, Container, Row } from 'react-bootstrap';
-import { ClientList } from './components/clientList/ClientList';
 import { ClientForm } from './components/clientForm/ClientForm';
 import { ClientDetail } from './components/clientDetail/ClientDetail';
 import { useEffect, useState } from 'react';
@@ -50,11 +49,11 @@ function App() {
 
   return (
     <>
-      <main className='py-4 px-3'>
+      <main className='overflow-hidden'>
+        <h1 className='text-center mb-5 py-3 bg-dark text-white'>MVP - CRM</h1>
         <Container fluid>
-          <h1 className='text-center mb-4'>MVP - CRM</h1>
           {!selectedClient ? 
-            <Row className='gx-5 overflow-hidden'>
+            <Row className='gx-5'>
               <Col md={8}>
                 {/* tabla customizada para datos de clientes */}
                 <CustomTable
@@ -66,7 +65,7 @@ function App() {
               <Col md={4}>
                 <div className='text-center mb-3'>
                   <button
-                    className='ppal-btn mt-5'
+                    className='ppal-btn'
                     onClick={handleShowForm}
                   >Crear cliente</button>
                 </div>

@@ -7,7 +7,7 @@ import { opportunitySchema } from "../../schemas/addOpportunitySchema";
 const initialValues = {
   title: "",
   amount: "",
-  status: 1 //valor por defecto del select
+  status: 1
 };
 
 export const OpportunityForm = ({ clientId, setOpportunities, setShowForm }) => {
@@ -19,7 +19,7 @@ export const OpportunityForm = ({ clientId, setOpportunities, setShowForm }) => 
     const { name, value } = e.target;
     setRegister({
       ...register,
-      [name]: name === "amount" || name === "status" ? Number(value) : value
+      [name]: name === "status" ? Number(value) : value
     });
   }
 
@@ -59,7 +59,7 @@ export const OpportunityForm = ({ clientId, setOpportunities, setShowForm }) => 
       <Form.Group className="mb-3" controlId="formAmount">
         <Form.Label className="fw-bold">Monto:</Form.Label>
         <Form.Control
-          type="number"
+          type="text"
           placeholder="0.00"
           name="amount"
           value={register.amount}
@@ -75,9 +75,9 @@ export const OpportunityForm = ({ clientId, setOpportunities, setShowForm }) => 
           value={register.status}
           onChange={handleChange}
         >
-          <option value={1}>Pendiente</option>
-          <option value={2}>En progreso</option>
-          <option value={3}>Completada</option>
+          <option value={1}>Nueva</option>
+          <option value={2}>En proceso</option>
+          <option value={3}>Cerrada</option>
         </Form.Select>
         {valErrors.status && <Form.Text className="text-danger fw-bold">{valErrors.status}</Form.Text>}
       </Form.Group>
