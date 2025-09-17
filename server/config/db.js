@@ -1,31 +1,61 @@
-import mysql from 'mysql2/promise';
-import dotenv from 'dotenv';
+import sqlite3 from 'sqlite3';
+import { open } from 'sqlite';
 
-dotenv.config();
+let db = null;
 
-export const dbPool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  dateStrings: true
-});
+export const getDatabase = async () => {
+  if (!db) {
+    db = await open({
+      filename: './database.db',
+      driver: sqlite3.Database
+    });
+  }
+  return db;
+};
 
-const executeQuery = async(sql, values=[]) => {
-  let connection;
+const executeQuery = async (sql, values = []) => {
   try {
-    connection = await dbPool.getConnection();
-    const [result] = await connection.query(sql, values);
-    return result;
-
+    const database = await getDatabase();
+    
+    if (sql.trim().toLowerCase().startsWith('select')) {
+      return await database.all(sql, values);
+    } else {
+      return await database.run(sql, values);
+    }
   } catch (error) {
     throw error;
-
-  } finally {
-    if (connection){
-      connection.release();
-    }
   }
-}
+};
 
+const initDatabase = async () => {
+  try {
+    await executeQuery(`
+      CREATE TABLE IF NOT EXISTS user (
+        user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        lastname TEXT NOT NULL,
+        email TEXT NOT NULL UNIQUE,
+        phone_number TEXT NOT NULL,
+        company TEXT
+      )
+    `);
+
+    await executeQuery(`
+      CREATE TABLE IF NOT EXISTS opportunity (
+        opportunity_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT NOT NULL,
+        amount REAL NOT NULL,
+        status INTEGER NOT NULL,
+        user_id INTEGER NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
+      )
+    `);
+
+    console.log('Tablas creadas correctamente');
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { initDatabase };
 export default executeQuery;
