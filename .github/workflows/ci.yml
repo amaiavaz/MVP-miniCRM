@@ -1,0 +1,47 @@
+name: Linteo y seguridad
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v3
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+##          node-version: 19
+
+      - name: Instalar dependencias del client
+        run: |
+          cd client
+          npm install
+
+      - name: Linteo del client
+        run: |
+          cd client
+          npx eslint . --ext .js,.jsx
+
+      - name: Auditoría de seguridad del client
+        run: |
+          cd client
+          npm audit --audit-level=critical
+
+      - name: Instalar dependencias del server
+        run: |
+          cd server
+          npm install
+
+      - name: Auditoría de seguridad del server
+        run: |
+          cd server
+          ### npm audit
+          npm audit --audit-level=critical
+          
