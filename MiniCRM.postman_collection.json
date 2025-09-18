@@ -84,6 +84,20 @@
           "path": ["api", "opportunities", "export"]
         }
       }
+    },
+    {
+      "name": "Exportar clientes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/clients/export",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "clients", "export"]
+        }
+      }
     }
   ]
 }

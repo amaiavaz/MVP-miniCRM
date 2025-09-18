@@ -73,7 +73,7 @@ function onListening() {
 }
 
 /**
- * Inicializa la base de datos y luego levanta el servidor
+ * inicializa la base de datos y luego levanta el servidor
  */
 const startServer = async () => {
   try {
