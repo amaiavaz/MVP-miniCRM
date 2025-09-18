@@ -1,0 +1,89 @@
+
+{
+  "info": {
+    "name": "MiniCRM API",
+    "_postman_id": "12345678-1234-1234-1234-123456789abc",
+    "description": "Colección para probar los endpoints del MiniCRM",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Listar clientes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/clients",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "clients"]
+        }
+      }
+    },
+    {
+      "name": "Crear cliente",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Juan\",\n  \"lastname\": \"Pérez\",\n  \"email\": \"juan@example.com\",\n  \"phone_number\": \"123456789\",\n  \"company\": \"ACME\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/clients/addClient",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "clients", "addClient"]
+        }
+      }
+    },
+    {
+      "name": "Listar oportunidades por cliente",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/opportunities/client/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "opportunities", "client", "1"]
+        }
+      }
+    },
+    {
+      "name": "Crear oportunidad",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Venta Producto A\",\n  \"amount\": 1000,\n  \"status\": 1,\n  \"client_id\": 1\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/opportunities/addOpportunity",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "opportunities", "addOpportunity"]
+        }
+      }
+    },
+    {
+      "name": "Exportar oportunidades",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/opportunities/export",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "opportunities", "export"]
+        }
+      }
+    }
+  ]
+}
