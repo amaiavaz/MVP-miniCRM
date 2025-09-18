@@ -7,23 +7,56 @@ on:
     branches: [ main ]
 
 jobs:
-  lint-and-security:
+  client:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout del codigo
+      - name: Checkout del código
         uses: actions/checkout@v3
 
       - name: Configurar Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
-#          node-version: 19
+##          node-version: 19
 
-      - name: Instalar dependencias
-        run: npm install
+      - name: Instalar dependencias del client
+        run: |
+          cd client
+          npm install
 
-      - name: Linteo
-        run: npx eslint . --ext .js,.jsx
+      - name: Linteo del client
+        run: |
+          cd client
+          npx eslint . --ext .js,.jsx
 
-      - name: Ejecutar npm audit
-        run: npm audit
+      - name: Auditoría de seguridad del client
+        run: |
+          cd client
+          npm audit
+
+  server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v3
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Instalar dependencias del server
+        run: |
+          cd server
+          npm install
+
+      - name: Linteo del server
+        run: |
+          cd server
+          npx eslint . --ext .js
+
+      - name: Auditoría de seguridad del server
+        run: |
+          cd server
+          npm audit
+
