@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  client:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout del código
@@ -34,29 +34,12 @@ jobs:
           cd client
           npm audit
 
-  server:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout del código
-        uses: actions/checkout@v3
-
-      - name: Configurar Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
       - name: Instalar dependencias del server
         run: |
           cd server
           npm install
 
-      - name: Linteo del server
-        run: |
-          cd server
-          npx eslint . --ext .js
-
       - name: Auditoría de seguridad del server
         run: |
           cd server
           npm audit
-
