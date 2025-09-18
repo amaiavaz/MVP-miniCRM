@@ -1,0 +1,29 @@
+name: Linteo y seguridad
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-and-security:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del codigo
+        uses: actions/checkout@v3
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+#          node-version: 19
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Linteo
+        run: npx eslint . --ext .js,.jsx
+
+      - name: Ejecutar npm audit
+        run: npm audit
