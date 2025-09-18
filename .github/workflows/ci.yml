@@ -42,4 +42,6 @@ jobs:
       - name: Auditoría de seguridad del server
         run: |
           cd server
-          npm audit
+          ### npm audit
+          npm audit --audit-level=critical
+          
