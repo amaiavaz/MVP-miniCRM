@@ -32,7 +32,7 @@ jobs:
       - name: Auditoría de seguridad del client
         run: |
           cd client
-          npm audit
+          npm audit --audit-level=critical
 
       - name: Instalar dependencias del server
         run: |
